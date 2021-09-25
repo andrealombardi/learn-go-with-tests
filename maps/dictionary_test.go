@@ -17,7 +17,7 @@ func TestSearch(t *testing.T) {
 
 	t.Run("unknown word", func(t *testing.T) {
 		_, err := dictionary.Search("unknown")
-		assertError(t, err, ErrNotFound)
+		assertError(t, err, ErrWordNotFound)
 	})
 }
 
@@ -41,7 +41,7 @@ func TestAdd(t *testing.T) {
 		dictionary := Dictionary{word: definition}
 		err := dictionary.Add(word, "this is another definition")
 
-		assertError(t, err, ErrAlreadyExist)
+		assertError(t, err, ErrWordAlreadyExist)
 		assertDefinition(t, dictionary, word, definition)
 	})
 }
@@ -61,6 +61,16 @@ func TestUpdate(t *testing.T) {
 		assertDefinition(t, dictionary, word, updated)
 	})
 
+	t.Run("Update new", func(t *testing.T) {
+
+		word := "test"
+		updated := "this is just a test - updated"
+		dictionary := Dictionary{}
+
+		err := dictionary.Update(word, updated)
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
 }
 
 func assertDefinition(t testing.TB, d Dictionary, word, definition string) {
