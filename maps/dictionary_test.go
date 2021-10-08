@@ -84,6 +84,7 @@ func assertDefinition(t testing.TB, d Dictionary, word, definition string) {
 	if got != definition {
 		t.Errorf("got %q, definition %q", got, definition)
 	}
+
 }
 
 func assertStrings(t testing.TB, got, want string) {
