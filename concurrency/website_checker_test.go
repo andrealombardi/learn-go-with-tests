@@ -36,8 +36,8 @@ func TestCheckWebsite(t *testing.T) {
 		"this://we.want.to.fail",
 	}
 	want := map[string]bool{
-		"http://google.com": true,
-		"http://amazon.com": true,
+		"http://google.com":      true,
+		"http://amazon.com":      true,
 		"this://we.want.to.fail": false,
 	}
 
