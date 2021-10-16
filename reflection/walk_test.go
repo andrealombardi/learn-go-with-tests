@@ -32,12 +32,26 @@ func TestWalk(t *testing.T) {
 			}{"Chris", 44},
 			[]string{"Chris"},
 		},
+		{"Non flat structure",
+			struct {
+				Name    string
+				Profile struct {
+					Age  int
+					City string
+				}
+			}{"Chris",
+				struct {
+					Age  int
+					City string
+				}{34, "London"}},
+			[]string{"Chris", "London"},
+		},
 	}
 
 	for _, test := range cases {
 		t.Run(test.Name, func(t *testing.T) {
 			var got []string
-			walk(test.Input, func(input string){
+			walk(test.Input, func(input string) {
 				got = append(got, input)
 			})
 
@@ -50,6 +64,5 @@ func TestWalk(t *testing.T) {
 
 		})
 	}
-
 
 }
