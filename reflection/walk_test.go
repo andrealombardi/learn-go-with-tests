@@ -5,6 +5,16 @@ import (
 	"testing"
 )
 
+type Person struct {
+	Name    string
+	Profile Profile
+}
+
+type Profile struct {
+	City string
+	Age  int
+}
+
 func TestWalk(t *testing.T) {
 
 	cases := []struct {
@@ -33,18 +43,26 @@ func TestWalk(t *testing.T) {
 			[]string{"Chris"},
 		},
 		{"Non flat structure",
-			struct {
-				Name    string
-				Profile struct {
-					Age  int
-					City string
-				}
-			}{"Chris",
-				struct {
-					Age  int
-					City string
-				}{34, "London"}},
+			Person{
+				"Chris",
+				Profile{
+					"London",
+					45,
+				}},
 			[]string{"Chris", "London"},
+		},
+		{"Pointer to things",
+			&Person{"Christos",
+				Profile{"London", 45}},
+			[]string{"Christos", "London"},
+		},
+		{
+			"Slices",
+			[]Profile {
+				{"London", 44},
+				{"Brescia", 23},
+			},
+			[]string{"London", "Brescia"},
 		},
 	}
 
