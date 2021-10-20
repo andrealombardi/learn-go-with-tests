@@ -3,6 +3,7 @@ package synccounter
 import (
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestCounter(t *testing.T) {
@@ -39,4 +40,28 @@ func assertCounter(t testing.TB, got *Counter, want int) {
 	if got.Value() != want {
 		t.Errorf("Got %d, want %d", got, want)
 	}
+}
+
+type T struct {
+	Version int `json:"version"`
+	Offers  struct {
+		Product []struct {
+			Genre    string   `json:"genre"`
+			Director string   `json:"director"`
+			Title    string   `json:"title"`
+			Year     int      `json:"year"`
+			Staring  []string `json:"staring,omitempty"`
+		} `json:"product"`
+		Bakset []struct {
+			Genre    string   `json:"genre"`
+			Director string   `json:"director"`
+			Title    string   `json:"title"`
+			Year     int      `json:"year"`
+			Staring  []string `json:"staring,omitempty"`
+		} `json:"bakset"`
+		Metadata struct {
+			LastUpdated time.Time `json:"lastUpdated"`
+		} `json:"metadata"`
+		StringJson string `json:"stringJson"`
+	} `json:"offers"`
 }
